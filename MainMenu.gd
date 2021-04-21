@@ -1,6 +1,6 @@
 extends CanvasLayer
-var sound_played = false
 signal new_game
+var sound_played = false
 
 
 # Called when the node enters the scene tree for the first time.
@@ -9,7 +9,6 @@ func _ready():
 
 
 func _on_Button_mouse_entered():
-	
 	if !sound_played:
 		sound_played = true
 		$Plop.play()
@@ -20,7 +19,7 @@ func _on_Button_mouse_exited():
 	$Plop.stop()
 
 
-func _hide_canvas():
+func hide_canvas():
 	$Background.hide()
 	$NewGame.hide()
 	$HighScore.hide()
@@ -32,4 +31,4 @@ func _on_NewGame_pressed():
 
 
 func _on_Exit_pressed():
-	 get_tree().quit()
+	get_tree().quit()

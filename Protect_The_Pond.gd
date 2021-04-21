@@ -1,5 +1,5 @@
 extends Node
-export (PackedScene) var Game
+export (PackedScene) var gamenode
 
 
 # Called when the node enters the scene tree for the first time.
@@ -8,6 +8,6 @@ func _ready():
 
 
 func _on_MainMenu_new_game():
-	$MainMenu._hide_canvas()
-	var game = Game.instance()
+	$MainMenu.hide_canvas()
+	var game = gamenode.instance()
 	add_child(game)
