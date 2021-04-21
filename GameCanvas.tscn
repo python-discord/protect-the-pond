@@ -1,18 +1,25 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://assets/overworld/teller window/teller_window.png" type="Texture" id=1]
 [ext_resource path="res://assets/overworld/overworld_healthy_no_lilies.png" type="Texture" id=2]
 [ext_resource path="res://assets/overworld/pondhouse/pondhouse_cropped.png" type="Texture" id=3]
 [ext_resource path="res://assets/fonts/LuckiestGuy-Regular.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://assets/overworld/buttons/annihilate_button_depressed.png" type="Texture" id=5]
+[ext_resource path="res://assets/overworld/buttons/menu_button.png" type="Texture" id=6]
 [ext_resource path="res://assets/overworld/buttons/allow_button.png" type="Texture" id=7]
 [ext_resource path="res://assets/overworld/buttons/annihilate_button.png" type="Texture" id=8]
 [ext_resource path="res://assets/overworld/buttons/allow_button_depressed.png" type="Texture" id=9]
+[ext_resource path="res://assets/overworld/buttons/exit_button.png" type="Texture" id=10]
 [ext_resource path="res://GameCanvas.gd" type="Script" id=11]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
 "points": PoolVector2Array( 0, 0, 0, 0, 3.15289, 247.194, 0, 0, 0, 0, 52.5419, 184.457, 0, 0, 0, 0, 52.5419, 184.457, 0, 0, 0, 0, 76.5691, 139.072, 0, 0, 0, 0, 99.2614, 119.05, 0, 0, 0, 0, 123.288, 85.6787, 0, 0, 0, 0, 153.99, 72.3303, 0, 0, 0, 0, 184.691, 75, 0, 0, 0, 0, 218.062, 87.0136, 0, 0, 0, 0, 259.442, 95.0226, 0, 0, 0, 0, 292.813, 105.701, 0, 0, 0, 0, 316.84, 101.697, 0, 0, 0, 0, 352.881, 76.3349, 0, 0, 0, 0, 383.582, 61.6516, 0, 0, 0, 0, 399.6, 96.3574, 0, 0, 0, 0, 414.284, 120.385, 0, 0, 0, 0, 431.636, 148.416, 0, 0, 0, 0, 447.655, 176.448, 0, 0, 0, 0, 466.342, 200.475, 0, 0, 0, 0, 486.365, 215.158, 0, 0, 0, 0, 518.401, 219.163, 0, 0, 0, 0, 553.107, 163.099, 0, 0, 0, 0, 593.152, 96.3574, 0, 0, 0, 0, 629.193, 108.371, 0, 0, 0, 0, 657.224, 129.728, 0, 0, 0, 0, 690.595, 155.09, 0, 0, 0, 0, 715.957, 177.783, 0, 0, 0, 0, 751.998, 197.805, 0, 0, 0, 0, 778.695, 201.81 )
+}
+
+[sub_resource type="Curve2D" id=3]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 937.688, 196.627, 0, 0, 0, 0, 974.553, 218.627, 0, 0, 0, 0, 1032.82, 241.222, 0, 0, 0, 0, 1082.77, 247.168, 0, 0, 0, 0, 1113.1, 231.114, 0, 0, 0, 0, 1068.5, 202.573, 0, 0, 0, 0, 1008.45, 171.059, 0, 0, 0, 0, 1047.69, 137.166, 0, 0, 0, 0, 1119.64, 145.491, 0, 0, 0, 0, 1164.23, 181.761, 0, 0, 0, 0, 1155.31, 228.735, 0, 0, 0, 0, 1186.23, 218.032, 0, 0, 0, 0, 1196.34, 179.978, 0, 0, 0, 0, 1186.23, 141.328, 0, 0, 0, 0, 1157.1, 162.14, 0, 0, 0, 0, 1120.83, 181.761, 0, 0, 0, 0, 1110.72, 207.329, 0, 0, 0, 0, 1158.88, 244.789, 0, 0, 0, 0, 1210.61, 256.682, 0, 0, 0, 0, 1244.5, 247.762, 0, 0, 0, 0, 1256.99, 185.924, 0, 0, 0, 0, 1230.83, 153.221, 0, 0, 0, 0, 1205.26, 158.572, 0, 0, 0, 0, 1079.2, 174.032, 0, 0, 0, 0, 1007.26, 146.68, 0, 0, 0, 0, 937.688, 196.627 )
 }
 
 [sub_resource type="DynamicFont" id=2]
@@ -27,11 +34,14 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 texture = ExtResource( 2 )
 __meta__ = {
-"_edit_use_anchors_": false
+"_edit_use_anchors_": true
 }
 
 [node name="River" type="Path2D" parent="."]
 curve = SubResource( 1 )
+
+[node name="Pond" type="Path2D" parent="."]
+curve = SubResource( 3 )
 
 [node name="Pondhouse" type="TextureRect" parent="."]
 margin_left = 771.943
@@ -44,24 +54,22 @@ __meta__ = {
 }
 
 [node name="TellerWindow" type="TextureRect" parent="."]
-anchor_top = 1.0
+anchor_top = 0.405556
+anchor_right = 0.352344
 anchor_bottom = 1.0
-margin_top = -428.0
-margin_right = 451.0
 texture = ExtResource( 1 )
 __meta__ = {
-"_edit_use_anchors_": false
+"_edit_use_anchors_": true
 }
 
 [node name="Label" type="Label" parent="."]
-anchor_left = 0.545969
-anchor_top = 0.553889
-anchor_right = 0.717438
-anchor_bottom = 0.707889
-margin_left = 0.159973
-margin_top = 0.200012
-margin_right = -0.320068
-margin_bottom = 0.319977
+anchor_left = 0.547094
+anchor_top = 0.554167
+anchor_right = 0.719675
+anchor_bottom = 0.703001
+margin_left = 6.10352e-05
+margin_right = -1.90387
+margin_bottom = 3.83899
 rect_rotation = -1.0
 custom_fonts/font = SubResource( 2 )
 text = "gfghfgj
@@ -72,24 +80,49 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
+[node name="Menu" type="TextureButton" parent="."]
+anchor_left = 0.652181
+anchor_top = 0.842372
+anchor_right = 0.8139
+anchor_bottom = 0.99515
+margin_right = -0.00195313
+texture_normal = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
 [node name="Allow" type="TextureButton" parent="."]
-margin_left = 834.792
-margin_top = 606.508
-margin_right = 1041.79
-margin_bottom = 716.508
+anchor_left = 0.652181
+anchor_top = 0.842372
+anchor_right = 0.8139
+anchor_bottom = 0.99515
+margin_right = -0.00195313
 texture_normal = ExtResource( 7 )
 texture_pressed = ExtResource( 9 )
 __meta__ = {
-"_edit_use_anchors_": false
+"_edit_use_anchors_": true
+}
+
+[node name="Exit" type="TextureButton" parent="."]
+anchor_left = 0.502351
+anchor_top = 0.798671
+anchor_right = 0.667976
+anchor_bottom = 0.957004
+margin_right = -6.10352e-05
+texture_normal = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": true
 }
 
 [node name="Deny" type="TextureButton" parent="."]
-margin_left = 643.009
-margin_top = 575.043
-margin_right = 855.009
-margin_bottom = 689.043
+anchor_left = 0.502351
+anchor_top = 0.798671
+anchor_right = 0.667976
+anchor_bottom = 0.957004
+margin_right = -6.10352e-05
 texture_normal = ExtResource( 8 )
 texture_pressed = ExtResource( 5 )
 __meta__ = {
-"_edit_use_anchors_": false
+"_edit_use_anchors_": true
 }
+[connection signal="pressed" from="Allow" to="." method="_on_Allow_pressed"]
