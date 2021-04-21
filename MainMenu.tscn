@@ -1,0 +1,85 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://assets/title-screen/title_screen_no_buttons.png" type="Texture" id=1]
+[ext_resource path="res://assets/fonts/LuckiestGuy-Regular.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://assets/audio/fx/plop_1.tres" type="AudioStream" id=3]
+[ext_resource path="res://MainMenu.gd" type="Script" id=4]
+
+[sub_resource type="Theme" id=1]
+
+[sub_resource type="DynamicFont" id=2]
+size = 64
+font_data = ExtResource( 2 )
+
+[node name="MainMenuCanvas" type="CanvasLayer"]
+script = ExtResource( 4 )
+
+[node name="Background" type="TextureRect" parent="."]
+margin_right = 1280.0
+margin_bottom = 720.0
+texture = ExtResource( 1 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NewGame" type="Button" parent="."]
+anchor_left = 0.066
+anchor_top = 0.231
+anchor_right = 0.066
+anchor_bottom = 0.231
+margin_left = -0.479996
+margin_top = -0.320007
+margin_right = 441.52
+margin_bottom = 133.68
+theme = SubResource( 1 )
+custom_fonts/font = SubResource( 2 )
+text = "NEW GAME"
+flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HighScore" type="Button" parent="."]
+anchor_left = 0.066
+anchor_top = 0.419
+anchor_right = 0.066
+anchor_bottom = 0.419
+margin_left = -0.112015
+margin_top = 0.0461121
+margin_right = 441.888
+margin_bottom = 101.046
+theme = SubResource( 1 )
+custom_fonts/font = SubResource( 2 )
+text = "HIGH SCORE"
+flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Exit" type="Button" parent="."]
+anchor_left = 0.066
+anchor_top = 0.596
+anchor_right = 0.066
+anchor_bottom = 0.712
+margin_left = -0.479996
+margin_top = -0.120026
+margin_right = 441.52
+margin_bottom = 0.359985
+theme = SubResource( 1 )
+custom_fonts/font = SubResource( 2 )
+text = "EXIT"
+flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Plop" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+[connection signal="mouse_entered" from="NewGame" to="." method="_on_Button_mouse_entered"]
+[connection signal="mouse_exited" from="NewGame" to="." method="_on_Button_mouse_exited"]
+[connection signal="pressed" from="NewGame" to="." method="_on_NewGame_pressed"]
+[connection signal="mouse_entered" from="HighScore" to="." method="_on_Button_mouse_entered"]
+[connection signal="mouse_exited" from="HighScore" to="." method="_on_Button_mouse_exited"]
+[connection signal="mouse_entered" from="Exit" to="." method="_on_Button_mouse_entered"]
+[connection signal="mouse_exited" from="Exit" to="." method="_on_Button_mouse_exited"]

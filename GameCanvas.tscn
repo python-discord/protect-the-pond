@@ -1,0 +1,95 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://assets/overworld/teller window/teller_window.png" type="Texture" id=1]
+[ext_resource path="res://assets/overworld/overworld_healthy_no_lilies.png" type="Texture" id=2]
+[ext_resource path="res://assets/overworld/pondhouse/pondhouse_cropped.png" type="Texture" id=3]
+[ext_resource path="res://assets/fonts/LuckiestGuy-Regular.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://assets/overworld/buttons/annihilate_button_depressed.png" type="Texture" id=5]
+[ext_resource path="res://assets/overworld/buttons/allow_button.png" type="Texture" id=7]
+[ext_resource path="res://assets/overworld/buttons/annihilate_button.png" type="Texture" id=8]
+[ext_resource path="res://assets/overworld/buttons/allow_button_depressed.png" type="Texture" id=9]
+[ext_resource path="res://GameCanvas.gd" type="Script" id=11]
+
+[sub_resource type="Curve2D" id=1]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 3.15289, 247.194, 0, 0, 0, 0, 52.5419, 184.457, 0, 0, 0, 0, 52.5419, 184.457, 0, 0, 0, 0, 76.5691, 139.072, 0, 0, 0, 0, 99.2614, 119.05, 0, 0, 0, 0, 123.288, 85.6787, 0, 0, 0, 0, 153.99, 72.3303, 0, 0, 0, 0, 184.691, 75, 0, 0, 0, 0, 218.062, 87.0136, 0, 0, 0, 0, 259.442, 95.0226, 0, 0, 0, 0, 292.813, 105.701, 0, 0, 0, 0, 316.84, 101.697, 0, 0, 0, 0, 352.881, 76.3349, 0, 0, 0, 0, 383.582, 61.6516, 0, 0, 0, 0, 399.6, 96.3574, 0, 0, 0, 0, 414.284, 120.385, 0, 0, 0, 0, 431.636, 148.416, 0, 0, 0, 0, 447.655, 176.448, 0, 0, 0, 0, 466.342, 200.475, 0, 0, 0, 0, 486.365, 215.158, 0, 0, 0, 0, 518.401, 219.163, 0, 0, 0, 0, 553.107, 163.099, 0, 0, 0, 0, 593.152, 96.3574, 0, 0, 0, 0, 629.193, 108.371, 0, 0, 0, 0, 657.224, 129.728, 0, 0, 0, 0, 690.595, 155.09, 0, 0, 0, 0, 715.957, 177.783, 0, 0, 0, 0, 751.998, 197.805, 0, 0, 0, 0, 778.695, 201.81 )
+}
+
+[sub_resource type="DynamicFont" id=2]
+size = 32
+font_data = ExtResource( 4 )
+
+[node name="Game" type="CanvasLayer"]
+script = ExtResource( 11 )
+
+[node name="Background" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="River" type="Path2D" parent="."]
+curve = SubResource( 1 )
+
+[node name="Pondhouse" type="TextureRect" parent="."]
+margin_left = 771.943
+margin_top = 112.68
+margin_right = 917.943
+margin_bottom = 232.68
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TellerWindow" type="TextureRect" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -428.0
+margin_right = 451.0
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+anchor_left = 0.545969
+anchor_top = 0.553889
+anchor_right = 0.717438
+anchor_bottom = 0.707889
+margin_left = 0.159973
+margin_top = 0.200012
+margin_right = -0.320068
+margin_bottom = 0.319977
+rect_rotation = -1.0
+custom_fonts/font = SubResource( 2 )
+text = "gfghfgj
+jbbbnbmnbnmbmbnm"
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Allow" type="TextureButton" parent="."]
+margin_left = 834.792
+margin_top = 606.508
+margin_right = 1041.79
+margin_bottom = 716.508
+texture_normal = ExtResource( 7 )
+texture_pressed = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Deny" type="TextureButton" parent="."]
+margin_left = 643.009
+margin_top = 575.043
+margin_right = 855.009
+margin_bottom = 689.043
+texture_normal = ExtResource( 8 )
+texture_pressed = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

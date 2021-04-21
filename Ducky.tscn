@@ -1,0 +1,84 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://assets/duck-builder/silverduck templates/5 - gray ducky beak.png" type="Texture" id=1]
+[ext_resource path="res://assets/duck-builder/silverduck templates/3 - gray ducky wing.png" type="Texture" id=2]
+[ext_resource path="res://assets/duck-builder/silverduck templates/1 - gray ducky main eye.png" type="Texture" id=3]
+[ext_resource path="res://assets/duck-builder/silverduck templates/4 - gray ducky body.png" type="Texture" id=4]
+[ext_resource path="res://assets/duck-builder/silverduck templates/2 - gray ducky wing eye.png" type="Texture" id=5]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends KinematicBody2D
+var set_fixed_process
+var hat
+
+func _ready():
+	set_physics_process(true)
+	hat = TextureRect.new()
+	hat.texture = preload(\"res://assets/duck-builder/accessories/hats/beret.png\")
+	add_child(hat)
+
+func _physics_process(delta):
+	get_parent().set_offset(get_parent().get_offset() + (40*delta))  
+"
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 286.383
+height = 30.5468
+
+[node name="Sprite" type="KinematicBody2D"]
+position = Vector2( 0.164772, -12.5851 )
+scale = Vector2( -0.05, 0.05 )
+script = SubResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Beak" type="TextureRect" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Body" type="TextureRect" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+texture = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Wing" type="TextureRect" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+texture = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="WingEye" type="TextureRect" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+texture = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Eye" type="TextureRect" parent="."]
+margin_left = 14.8651
+margin_top = 7.43256
+margin_right = 513.865
+margin_bottom = 607.433
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 251.804, 395.666 )
+shape = SubResource( 2 )
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+position = Vector2( 262.785, 389.061 )
+scale = Vector2( 26.4688, 23.3438 )
