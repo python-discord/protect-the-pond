@@ -1,12 +1,11 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://Ducky.tscn" type="PackedScene" id=1]
-[ext_resource path="res://GameCanvas.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/scenes/Ducky.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/scenes/GameCanvas.tscn" type="PackedScene" id=2]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Node
 export (PackedScene) var Ducky
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -16,9 +15,10 @@ func _ready():
 # Called to add another ducky to the river
 func _on_DuckTimer_timeout():
 	var ducky = Ducky.instance()
-	var pf = PathFollow2D.new()
-	pf.add_child(ducky)
-	$Game/River.add_child(pf)
+	var path = PathFollow2D.new()
+	path.loop = false
+	path.add_child(ducky)
+	$Game/River.add_child(path)
 "
 
 [node name="GameNode" type="Node2D"]

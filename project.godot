@@ -16,7 +16,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Protect The Pond"
-run/main_scene="res://Protect_The_Pond.tscn"
+run/main_scene="res://src/scenes/Protect_The_Pond.tscn"
 config/icon="res://assets/title-screen/supercop.png"
 
 [display]

@@ -3,7 +3,7 @@
 [ext_resource path="res://assets/title-screen/title_screen_no_buttons.png" type="Texture" id=1]
 [ext_resource path="res://assets/fonts/LuckiestGuy-Regular.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://assets/audio/fx/plop_1.tres" type="AudioStream" id=3]
-[ext_resource path="res://MainMenu.gd" type="Script" id=4]
+[ext_resource path="res://src/scripts/MainMenu.gd" type="Script" id=4]
 
 [sub_resource type="Theme" id=1]
 
