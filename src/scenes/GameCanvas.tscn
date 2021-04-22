@@ -127,3 +127,4 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 [connection signal="pressed" from="Allow" to="." method="_on_Allow_pressed"]
+[connection signal="pressed" from="Deny" to="." method="_on_Deny_pressed"]

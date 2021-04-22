@@ -14,3 +14,9 @@ func _on_Allow_pressed():
 			$River.remove_child(ducky)
 			ducky.loop = true
 			$Pond.add_child(ducky)
+
+
+func _on_Deny_pressed():
+	if $River.get_child_count():
+		var ducky = $River.get_child(0)
+		ducky.queue_free()
