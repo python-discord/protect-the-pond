@@ -29,8 +29,8 @@ _data = {
 }
 
 [sub_resource type="Gradient" id=7]
-offsets = PoolRealArray( 0, 0.890323 )
-colors = PoolColorArray( 0.184314, 0.545098, 0.580392, 0.368627, 0.243137, 0.847059, 0.34902, 0.54902 )
+offsets = PoolRealArray( 0, 0.825806 )
+colors = PoolColorArray( 0.184314, 0.545098, 0.580392, 0.368627, 0.67451, 0.772549, 0.0980392, 0.54902 )
 
 [sub_resource type="GradientTexture" id=6]
 gradient = SubResource( 7 )
