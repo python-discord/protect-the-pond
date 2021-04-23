@@ -3,6 +3,12 @@ extends PathFollow2D
 signal river_end
 signal teller_end
 
+ 
+export var ducky_hat  = preload("res://assets/duck-builder/accessories/hats/beret.png")
+export var river_speed = 40
+export var php_speed = 75
+export var pond_speed = 60
+
 var hat
 
 
@@ -10,7 +16,7 @@ var hat
 func _init():
 	set_physics_process(true)
 	hat = TextureRect.new()
-	hat.texture = preload("res://assets/duck-builder/accessories/hats/beret.png")
+	hat.texture = ducky_hat
 
 
 func _ready():
@@ -20,11 +26,11 @@ func _ready():
 func get_speed():
 	var location = get_parent().name
 	if location == 'River':
-		return 40
+		return river_speed
 	elif location == 'PondHousePath':
-		return 75
+		return php_speed
 	elif location == 'Pond':
-		return 60
+		return pond_speed
 
 
 func _physics_process(delta):

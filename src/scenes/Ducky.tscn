@@ -7,7 +7,7 @@
 [ext_resource path="res://assets/duck-builder/silverduck templates/2 - gray ducky wing eye.png" type="Texture" id=5]
 [ext_resource path="res://src/scripts/Ducky.gd" type="Script" id=6]
 
-[sub_resource type="CapsuleShape2D" id=2]
+[sub_resource type="CapsuleShape2D" id=1]
 radius = 286.383
 height = 30.5468
 
@@ -66,7 +66,7 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ducky"]
 position = Vector2( 251.804, 395.666 )
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="Ducky"]
 position = Vector2( 262.785, 389.061 )
