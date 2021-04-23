@@ -15,10 +15,7 @@ func _ready():
 # Called to add another ducky to the river
 func _on_DuckTimer_timeout():
 	var ducky = Ducky.instance()
-	var path = PathFollow2D.new()
-	path.loop = false
-	path.add_child(ducky)
-	$Game/River.add_child(path)
+	$Game/River.add_child(ducky)
 "
 
 [node name="GameNode" type="Node2D"]
@@ -28,5 +25,5 @@ Ducky = ExtResource( 1 )
 [node name="Game" parent="." instance=ExtResource( 2 )]
 
 [node name="DuckTimer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 5.0
 [connection signal="timeout" from="DuckTimer" to="." method="_on_DuckTimer_timeout"]
