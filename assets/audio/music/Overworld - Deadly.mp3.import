@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Overworld - Deadly.mp3-ec0657db358dd30f026179e59b70a556.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/music/Overworld - Deadly.mp3"
+dest_files=[ "res://.import/Overworld - Deadly.mp3-ec0657db358dd30f026179e59b70a556.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

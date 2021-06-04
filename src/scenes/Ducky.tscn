@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=41 format=2]
 
 [ext_resource path="res://assets/duck-builder/silverduck templates/5 - gray ducky beak.png" type="Texture" id=1]
 [ext_resource path="res://assets/duck-builder/silverduck templates/1 - gray ducky main eye.png" type="Texture" id=2]
@@ -6,68 +6,304 @@
 [ext_resource path="res://assets/duck-builder/silverduck templates/4 - gray ducky body.png" type="Texture" id=4]
 [ext_resource path="res://assets/duck-builder/silverduck templates/2 - gray ducky wing eye.png" type="Texture" id=5]
 [ext_resource path="res://src/scripts/Ducky.gd" type="Script" id=6]
+[ext_resource path="res://assets/duck-builder/accessories/hats/fez.png" type="Texture" id=7]
+[ext_resource path="res://assets/duck-builder/accessories/hats/halo.png" type="Texture" id=8]
+[ext_resource path="res://assets/duck-builder/accessories/hats/cowboy.png" type="Texture" id=9]
+[ext_resource path="res://assets/duck-builder/accessories/hats/horns.png" type="Texture" id=10]
+[ext_resource path="res://assets/duck-builder/accessories/hats/leafy.png" type="Texture" id=11]
+[ext_resource path="res://assets/duck-builder/accessories/hats/beret.png" type="Texture" id=12]
+[ext_resource path="res://assets/duck-builder/accessories/hats/durag.png" type="Texture" id=13]
+[ext_resource path="res://assets/duck-builder/accessories/hats/crown.png" type="Texture" id=14]
+[ext_resource path="res://assets/duck-builder/accessories/hats/santa.png" type="Texture" id=15]
+[ext_resource path="res://assets/duck-builder/accessories/hats/maul.png" type="Texture" id=16]
+[ext_resource path="res://assets/duck-builder/accessories/hats/mortarboard.png" type="Texture" id=17]
+[ext_resource path="res://assets/duck-builder/accessories/hats/wizard.png" type="Texture" id=18]
+[ext_resource path="res://assets/duck-builder/accessories/hats/party.png" type="Texture" id=19]
+[ext_resource path="res://assets/duck-builder/accessories/equipment/paintbrush.png" type="Texture" id=20]
+[ext_resource path="res://assets/duck-builder/accessories/equipment/lightsaber.png" type="Texture" id=21]
+[ext_resource path="res://assets/duck-builder/accessories/equipment/sign.png" type="Texture" id=22]
+[ext_resource path="res://assets/duck-builder/accessories/equipment/radio.png" type="Texture" id=23]
+[ext_resource path="res://assets/duck-builder/accessories/equipment/baseball_bat.png" type="Texture" id=24]
+[ext_resource path="res://assets/duck-builder/accessories/equipment/trafficlight.png" type="Texture" id=25]
+[ext_resource path="res://assets/duck-builder/accessories/equipment/umbrella.png" type="Texture" id=26]
+[ext_resource path="res://assets/duck-builder/accessories/equipment/sword.png" type="Texture" id=27]
+[ext_resource path="res://assets/duck-builder/accessories/equipment/wand.png" type="Texture" id=28]
+[ext_resource path="res://assets/misc/boom.png" type="Texture" id=29]
+[ext_resource path="res://src/scripts/Duck.gd" type="Script" id=30]
 
-[sub_resource type="CapsuleShape2D" id=1]
-radius = 286.383
-height = 30.5468
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+
+uniform sampler2D gradient;
+uniform float speed_scale = 1;
+
+void fragment() {
+	vec4 color = texture(TEXTURE, UV);
+	float x = mod(color.r - TIME * speed_scale, 1.0);
+	COLOR = vec4(texture(gradient, vec2(x, 0)).rgb, color.a);
+}
+
+void vertex() {
+  // Animate Sprite moving in big circle around its location
+  VERTEX += vec2(cos(TIME)*10.0, sin(TIME)*10.0);
+}
+"
+
+[sub_resource type="Gradient" id=2]
+offsets = PoolRealArray( 0.177778, 0.392593, 0.540741, 0.666667, 0.814815 )
+colors = PoolColorArray( 0.191406, 0.0321503, 0.0321503, 1, 0.582031, 0.381958, 0.381958, 1, 0.329412, 0.0784314, 0.0784314, 0.113725, 0.890625, 0.434875, 0.434875, 1, 0.234375, 0.0256348, 0.0256348, 1 )
+
+[sub_resource type="GradientTexture" id=3]
+gradient = SubResource( 2 )
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = SubResource( 1 )
+shader_param/speed_scale = 0.05
+shader_param/gradient = SubResource( 3 )
+
+[sub_resource type="CapsuleShape2D" id=5]
+resource_local_to_scene = true
+radius = 261.361
+height = 0.0
+
+[sub_resource type="Shader" id=6]
+code = "shader_type canvas_item;
+render_mode unshaded, blend_disabled;
+
+uniform float speed = 1.0;
+uniform vec4 a_position;
+uniform vec2 a_texcoord;                                                  
+
+varying vec2 v_texcoord;
+
+vec2 rotateUV(vec2 uv, vec2 pivot, float rotation) {
+    float cosa = cos(rotation);
+    float sina = sin(rotation);
+    uv -= pivot;
+    return vec2(
+        cosa * uv.x - sina * uv.y,
+        cosa * uv.y + sina * uv.x 
+    ) + pivot;
+}
+
+void vertex() {
+    //VERTEX = rotateUV(VERTEX, 0.5/TEXTURE_PIXEL_SIZE, TIME * speed);
+	v_texcoord = vec2(a_texcoord[1], 1.0 - a_texcoord[1]);
+	//v_texcoord = a_texcoord.x * vec2(1.0, -1.0);
+}
+"
+
+[sub_resource type="ShaderMaterial" id=7]
+shader = SubResource( 6 )
+shader_param/speed = 1.0
+shader_param/a_position = null
+shader_param/a_texcoord = null
+
+[sub_resource type="StreamTexture" id=8]
+flags = 4
+load_path = "res://.import/1 - gray ducky main eye.png-448b0e931307195abf451bf978cee812.stex"
+
+[sub_resource type="Gradient" id=9]
+offsets = PoolRealArray( 0, 0.825806 )
+colors = PoolColorArray( 0.184314, 0.545098, 0.580392, 0.368627, 0.67451, 0.772549, 0.0980392, 0.54902 )
+
+[sub_resource type="GradientTexture" id=10]
+gradient = SubResource( 9 )
+width = 500
 
 [node name="DuckPathed" type="PathFollow2D"]
+position = Vector2( 0.370552, 0.423942 )
+rotation = 0.0108957
 loop = false
 script = ExtResource( 6 )
+__meta__ = {
+"_edit_horizontal_guides_": [ -57.1004 ]
+}
+hats = [ ExtResource( 13 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 19 ), ExtResource( 15 ), ExtResource( 18 ), ExtResource( 12 ), ExtResource( 9 ), ExtResource( 14 ) ]
+equips = [ ExtResource( 24 ), ExtResource( 21 ), ExtResource( 20 ), ExtResource( 23 ), ExtResource( 22 ), ExtResource( 27 ), ExtResource( 25 ), ExtResource( 26 ), ExtResource( 28 ) ]
 
 [node name="Ducky" type="KinematicBody2D" parent="."]
-position = Vector2( 13, -19.5 )
+material = SubResource( 4 )
+position = Vector2( 11.6126, -26.7417 )
 scale = Vector2( -0.05, 0.05 )
+z_as_relative = false
+input_pickable = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ducky"]
+visible = false
+position = Vector2( 269.393, 387.249 )
+rotation = -9.31323e-10
+shape = SubResource( 5 )
+
+[node name="Beak" type="Polygon2D" parent="Ducky" groups=[
+"duck_parts",
+]]
+color = Color( 0.823529, 0.898039, 0.156863, 1 )
+texture = ExtResource( 1 )
+skeleton = NodePath("../../Duck")
+polygon = PoolVector2Array( 82, 303, 19, 336, 0, 331, 0, 356, 6, 382, 71, 393, 138, 405, 114, 346, 94, 352 )
+uv = PoolVector2Array( 82, 303, 19, 336, 0, 331, 0, 356, 6, 382, 71, 393, 138, 405, 114, 346, 94, 352 )
+bones = [ NodePath("body"), PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ), NodePath("body/head"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("body/head/top"), PoolRealArray( 0.5, 1, 1, 1, 0, 0, 0, 0.5, 0.5 ), NodePath("body/head/bottom"), PoolRealArray( 0, 0, 0, 1, 1, 1, 0.5, 0, 0 ), NodePath("body/tail"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("body/wing"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0 ) ]
+
+[node name="Body" type="Polygon2D" parent="Ducky" groups=[
+"duck_parts",
+]]
+material = SubResource( 7 )
+color = Color( 0.748949, 0.150463, 0.5931, 1 )
+texture = ExtResource( 4 )
+skeleton = NodePath("../../Duck")
+polygon = PoolVector2Array( 140, 177, 70, 231, 62, 302, 84, 373, 41, 453, 73, 558, 200, 607, 379, 604, 520, 498, 491, 311, 441, 331, 432, 356, 328, 318, 312, 202, 223, 164 )
+uv = PoolVector2Array( 140, 177, 70, 231, 62, 302, 84, 373, 41, 453, 73, 558, 200, 607, 379, 604, 520, 498, 491, 311, 441, 331, 432, 356, 328, 318, 312, 202, 223, 164 )
+bones = [ NodePath("body"), PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ), NodePath("body/head"), PoolRealArray( 0.5, 0.5, 0.5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5 ), NodePath("body/head/top"), PoolRealArray( 0, 0, 0.5, 0.5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("body/head/bottom"), PoolRealArray( 0, 0, 0.5, 0.5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("body/tail"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0 ), NodePath("body/wing"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ) ]
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="Eye" type="Polygon2D" parent="Ducky" groups=[
+"duck_parts",
+]]
+color = Color( 0.333333, 0.580392, 0.568627, 1 )
+texture = ExtResource( 2 )
+skeleton = NodePath("../../Duck")
+polygon = PoolVector2Array( 149, 234, 114, 275, 151, 323, 195, 277 )
+uv = PoolVector2Array( 149, 234, 114, 275, 151, 323, 195, 277 )
+bones = [ NodePath("body"), PoolRealArray( 1, 1, 1, 1 ), NodePath("body/head"), PoolRealArray( 0.98, 0.98, 0.98, 0.98 ), NodePath("body/head/beak"), PoolRealArray( 0, 0, 0, 0 ), NodePath("body/wing"), PoolRealArray( 0, 0, 0, 0 ), NodePath("body/tail"), PoolRealArray( 0, 0, 0, 0 ) ]
+
+[node name="Eye2" type="Polygon2D" parent="Ducky" groups=[
+"duck_parts",
+]]
+use_parent_material = true
+position = Vector2( 69.4576, 137.411 )
+scale = Vector2( 0.5, 0.5 )
+color = Color( 0.0666667, 0.0705882, 0.0705882, 1 )
+texture = SubResource( 8 )
+skeleton = NodePath("../../Duck")
+polygon = PoolVector2Array( 149, 234, 114, 275, 151, 323, 195, 277 )
+uv = PoolVector2Array( 149, 234, 114, 275, 151, 323, 195, 277 )
+bones = [ NodePath("body"), PoolRealArray( 1, 1, 1, 1 ), NodePath("body/head"), PoolRealArray( 0.98, 0.98, 0.98, 0.98 ), NodePath("body/head/top"), PoolRealArray( 0, 0, 0, 0 ), NodePath("body/head/bottom"), PoolRealArray( 0, 0, 0, 0 ), NodePath("body/tail"), PoolRealArray( 0, 0, 0, 0 ), NodePath("body/wing"), PoolRealArray( 0, 0, 0, 0 ) ]
+
+[node name="Hat" type="Polygon2D" parent="Ducky" groups=[
+"duck_parts",
+]]
+visible = false
+position = Vector2( 0, -2.64893 )
+rotation = -2.27374e-13
+skeleton = NodePath("../../Duck")
+polygon = PoolVector2Array( 0, 10, 0, 260, 430, 260, 430, 10 )
+uv = PoolVector2Array( 0, 30, 0, 250, 430, 270, 430, 40 )
+bones = [ NodePath("body"), PoolRealArray( 0.98, 0.98, 0.98, 0.98 ), NodePath("body/head"), PoolRealArray( 0.98, 0.98, 0.98, 0.98 ), NodePath("body/head/top"), PoolRealArray( 0, 0, 0, 0 ), NodePath("body/head/bottom"), PoolRealArray( 0, 0, 0, 0 ), NodePath("body/tail"), PoolRealArray( 0, 0, 0, 0 ), NodePath("body/wing"), PoolRealArray( 0, 0, 0, 0 ) ]
+
+[node name="Equipment" type="Polygon2D" parent="Ducky" groups=[
+"duck_parts",
+]]
+visible = false
+position = Vector2( -2.64844, -1.01134 )
+rotation = -2.27374e-13
+scale = Vector2( 1, 1.01535 )
+skeleton = NodePath("../../Duck")
+polygon = PoolVector2Array( 550, 580, 550, 60, 150, 60, 150, 340, 150, 580 )
+uv = PoolVector2Array( 536.036, 582.883, 550, 40, 150, 30, 136.937, 340.541, 80, 580 )
+bones = [ NodePath("body"), PoolRealArray( 0.98, 0.98, 0.98, 0.98, 0.98 ), NodePath("body/head"), PoolRealArray( 0, 0, 0, 0, 0 ), NodePath("body/head/top"), PoolRealArray( 0, 0, 0, 0, 0 ), NodePath("body/head/bottom"), PoolRealArray( 0, 0, 0, 0, 0 ), NodePath("body/tail"), PoolRealArray( 0, 0, 0, 0, 0 ), NodePath("body/wing"), PoolRealArray( 0.49, 0.98, 0.98, 0.49, 0.49 ) ]
+
+[node name="Wing" type="Polygon2D" parent="Ducky" groups=[
+"duck_parts",
+]]
+texture = ExtResource( 3 )
+skeleton = NodePath("../../Duck")
+polygon = PoolVector2Array( 365.833, 337.5, 189.167, 425.833, 180.833, 497.5, 230, 559.167, 318.333, 550, 375, 493.333, 453.333, 460, 475, 380.833 )
+uv = PoolVector2Array( 365.833, 337.5, 189.167, 425.833, 180.833, 497.5, 230, 559.167, 318.333, 550, 375, 493.333, 453.333, 460, 475, 380.833 )
+bones = [ NodePath("body"), PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ), NodePath("body/head"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("body/head/top"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("body/head/bottom"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("body/tail"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("body/wing"), PoolRealArray( 1, 0, 0, 0, 0, 1, 1, 1 ) ]
+
+[node name="WingEye" type="Polygon2D" parent="Ducky" groups=[
+"duck_parts",
+]]
+texture = ExtResource( 5 )
+skeleton = NodePath("../../Duck")
+polygon = PoolVector2Array( 316, 486, 292, 516, 330, 532, 346, 502 )
+uv = PoolVector2Array( 316, 486, 292, 516, 330, 532, 346, 502 )
+bones = [ NodePath("body"), PoolRealArray( 1, 1, 1, 1 ), NodePath("body/head"), PoolRealArray( 0, 0, 0, 0 ), NodePath("body/head/beak"), PoolRealArray( 0, 0, 0, 0 ), NodePath("body/wing"), PoolRealArray( 1, 1, 1, 1 ), NodePath("body/tail"), PoolRealArray( 0, 0, 0, 0 ) ]
+
+[node name="Boom" type="TextureRect" parent="Ducky"]
+visible = false
+margin_left = -284.101
+margin_top = -22.7556
+margin_right = 795.899
+margin_bottom = 684.244
+mouse_filter = 2
+texture = ExtResource( 29 )
+flip_h = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="Ducky"]
+visible = false
+position = Vector2( 270.467, 372.077 )
+rotation = -3.36357e-11
+scale = Vector2( 27.6885, 31.2167 )
+
+[node name="Light" type="Light2D" parent="Ducky"]
+visible = false
+position = Vector2( 265.353, 582.097 )
+scale = Vector2( 1.18968, 363.515 )
+texture = SubResource( 10 )
+color = Color( 0.67451, 0.823529, 0.658824, 1 )
+mode = 2
+shadow_item_cull_mask = 1025
+
+[node name="Duck" type="Skeleton2D" parent="."]
+visible = false
+position = Vector2( 12.8894, -27.2134 )
+rotation = 0.202633
+script = ExtResource( 30 )
 __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Beak" type="TextureRect" parent="Ducky"]
-margin_right = 40.0
-margin_bottom = 40.0
-texture = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="test_bob" type="Tween" parent="Duck"]
 
-[node name="Body" type="TextureRect" parent="Ducky"]
-margin_right = 40.0
-margin_bottom = 40.0
-texture = ExtResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="color" type="Tween" parent="Duck"]
 
-[node name="Wing" type="TextureRect" parent="Ducky"]
-margin_right = 40.0
-margin_bottom = 40.0
-texture = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="body" type="Bone2D" parent="Duck"]
+position = Vector2( -5.60215, 28.3871 )
+rotation = -7.10543e-15
+rest = Transform2D( 1, -7.10543e-15, 7.10543e-15, 1, -5.60215, 28.3871 )
 
-[node name="WingEye" type="TextureRect" parent="Ducky"]
-margin_right = 40.0
-margin_bottom = 40.0
-texture = ExtResource( 5 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="head" type="Bone2D" parent="Duck/body"]
+position = Vector2( -2.46948, -14.6424 )
+rotation = -7.10543e-15
+rest = Transform2D( 1, -7.10543e-15, 7.10543e-15, 1, -2.46948, -14.6424 )
 
-[node name="Eye" type="TextureRect" parent="Ducky"]
-margin_left = 14.8651
-margin_top = 7.43256
-margin_right = 513.865
-margin_bottom = 607.433
-texture = ExtResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="top" type="Bone2D" parent="Duck/body/head"]
+position = Vector2( 4.50006, 6.77151 )
+rotation = -0.253073
+rest = Transform2D( 0.968148, -0.25038, 0.25038, 0.968148, 4.50006, 6.77151 )
+default_length = 7.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Ducky"]
-position = Vector2( 251.804, 395.666 )
-shape = SubResource( 1 )
+[node name="bottom" type="Bone2D" parent="Duck/body/head"]
+position = Vector2( 4.53056, 8.29901 )
+rotation = -0.253073
+rest = Transform2D( 0.968148, -0.25038, 0.25038, 0.968148, 4.53056, 8.29901 )
+default_length = 7.0
 
-[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="Ducky"]
-position = Vector2( 262.785, 389.061 )
-scale = Vector2( 26.4688, 23.3438 )
+[node name="tail" type="Bone2D" parent="Duck/body"]
+position = Vector2( -10.0048, 3.3277 )
+rotation = -1.84132
+scale = Vector2( 0.999999, 0.999999 )
+rest = Transform2D( -0.267238, -0.96363, 0.96363, -0.267238, -10.0048, 3.3277 )
+default_length = 9.0
+
+[node name="wing" type="Bone2D" parent="Duck/body"]
+position = Vector2( -0.299397, -0.197295 )
+rotation = -2.79078
+rest = Transform2D( -0.939094, -0.34366, 0.34366, -0.939094, -0.299397, -0.197295 )
+default_length = 10.0
+
+[node name="Bob" type="Tween" parent="."]
+
+[connection signal="mouse_entered" from="Ducky" to="Duck" method="_on_Ducky_mouse_entered"]
+[connection signal="mouse_exited" from="Ducky" to="Duck" method="_on_Ducky_mouse_exited"]
+[connection signal="tween_completed" from="Duck/test_bob" to="Duck" method="_on_test_bob_tween_completed"]
+[connection signal="tween_completed" from="Duck/color" to="Duck" method="_on_color_completed"]
+[connection signal="tween_completed" from="Bob" to="." method="_on_Bob_tween_completed"]

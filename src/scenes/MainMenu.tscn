@@ -23,15 +23,23 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="NewGame" type="Button" parent="."]
-anchor_left = 0.066
-anchor_top = 0.231
-anchor_right = 0.066
-anchor_bottom = 0.231
-margin_left = -0.479996
-margin_top = -0.320007
-margin_right = 441.52
-margin_bottom = 133.68
+[node name="Plop" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+
+[node name="Buttons" type="VBoxContainer" parent="."]
+margin_top = 143.175
+margin_right = 640.0
+margin_bottom = 591.175
+custom_constants/separation = 75
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NewGame" type="Button" parent="Buttons"]
+margin_top = 44.0
+margin_right = 640.0
+margin_bottom = 114.0
 theme = SubResource( 1 )
 custom_fonts/font = SubResource( 2 )
 text = "NEW GAME"
@@ -40,15 +48,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HighScore" type="Button" parent="."]
-anchor_left = 0.066
-anchor_top = 0.419
-anchor_right = 0.066
-anchor_bottom = 0.419
-margin_left = -0.112015
-margin_top = 0.0461121
-margin_right = 441.888
-margin_bottom = 101.046
+[node name="HighScore" type="Button" parent="Buttons"]
+margin_top = 189.0
+margin_right = 640.0
+margin_bottom = 259.0
 theme = SubResource( 1 )
 custom_fonts/font = SubResource( 2 )
 text = "HIGH SCORE"
@@ -57,15 +60,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Exit" type="Button" parent="."]
-anchor_left = 0.066
-anchor_top = 0.596
-anchor_right = 0.066
-anchor_bottom = 0.712
-margin_left = -0.479996
-margin_top = -0.120026
-margin_right = 441.52
-margin_bottom = 0.359985
+[node name="Exit" type="Button" parent="Buttons"]
+margin_top = 334.0
+margin_right = 640.0
+margin_bottom = 404.0
 theme = SubResource( 1 )
 custom_fonts/font = SubResource( 2 )
 text = "EXIT"
@@ -74,13 +72,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Plop" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 3 )
-[connection signal="mouse_entered" from="NewGame" to="." method="_on_Button_mouse_entered"]
-[connection signal="mouse_exited" from="NewGame" to="." method="_on_Button_mouse_exited"]
-[connection signal="pressed" from="NewGame" to="." method="_on_NewGame_pressed"]
-[connection signal="mouse_entered" from="HighScore" to="." method="_on_Button_mouse_entered"]
-[connection signal="mouse_exited" from="HighScore" to="." method="_on_Button_mouse_exited"]
-[connection signal="mouse_entered" from="Exit" to="." method="_on_Button_mouse_entered"]
-[connection signal="mouse_exited" from="Exit" to="." method="_on_Button_mouse_exited"]
-[connection signal="pressed" from="Exit" to="." method="_on_Exit_pressed"]
+[connection signal="mouse_entered" from="Buttons/NewGame" to="." method="_on_Button_mouse_entered"]
+[connection signal="mouse_exited" from="Buttons/NewGame" to="." method="_on_Button_mouse_exited"]
+[connection signal="pressed" from="Buttons/NewGame" to="." method="_on_NewGame_pressed"]
+[connection signal="mouse_entered" from="Buttons/HighScore" to="." method="_on_Button_mouse_entered"]
+[connection signal="mouse_exited" from="Buttons/HighScore" to="." method="_on_Button_mouse_exited"]
+[connection signal="mouse_entered" from="Buttons/Exit" to="." method="_on_Button_mouse_entered"]
+[connection signal="mouse_exited" from="Buttons/Exit" to="." method="_on_Button_mouse_exited"]
+[connection signal="pressed" from="Buttons/Exit" to="." method="_on_Exit_pressed"]

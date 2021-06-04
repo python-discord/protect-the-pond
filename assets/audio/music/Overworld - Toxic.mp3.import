@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Overworld - Toxic.mp3-b3d5f29343d86879492494ef8894cb65.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/music/Overworld - Toxic.mp3"
+dest_files=[ "res://.import/Overworld - Toxic.mp3-b3d5f29343d86879492494ef8894cb65.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

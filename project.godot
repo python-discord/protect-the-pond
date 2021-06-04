@@ -10,7 +10,6 @@ config_version=4
 
 _global_script_classes=[  ]
 _global_script_class_icons={
-
 }
 
 [application]
@@ -31,6 +30,14 @@ window/stretch/aspect="keep"
 singletons=[  ]
 singletons_disabled=[  ]
 
+[global]
+
+etc=true
+stretch=false
+gles=true
+
 [rendering]
 
-environment/default_environment="res://default_env.tres"
+quality/subsurface_scattering/quality=2
+environment/default_clear_color=Color( 0.184314, 0.305882, 0.411765, 1 )
+quality/filters/msaa=4

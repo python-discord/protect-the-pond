@@ -16,9 +16,7 @@ func _on_Button_mouse_exited():
 
 func hide_canvas():
 	$Background.hide()
-	$NewGame.hide()
-	$HighScore.hide()
-	$Exit.hide()
+	$Buttons.hide()
 
 
 func _on_NewGame_pressed():

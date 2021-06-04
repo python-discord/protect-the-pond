@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://assets/overworld/buttons/allow_button.png" type="Texture" id=1]
 [ext_resource path="res://assets/overworld/buttons/annihilate_button.png" type="Texture" id=2]
@@ -7,10 +7,14 @@
 [ext_resource path="res://assets/fonts/LuckiestGuy-Regular.ttf" type="DynamicFontData" id=5]
 [ext_resource path="res://src/scripts/GameCanvas.gd" type="Script" id=6]
 [ext_resource path="res://assets/overworld/teller window/teller_window.png" type="Texture" id=7]
-[ext_resource path="res://assets/overworld/overworld_healthy_no_lilies.png" type="Texture" id=8]
+[ext_resource path="res://assets/shaders/Water2D/water_diffuse.png" type="Texture" id=8]
 [ext_resource path="res://assets/overworld/pondhouse/pondhouse_cropped.png" type="Texture" id=9]
 [ext_resource path="res://assets/overworld/buttons/annihilate_button_depressed.png" type="Texture" id=10]
 [ext_resource path="res://assets/overworld/buttons/menu_button.png" type="Texture" id=11]
+[ext_resource path="res://assets/overworld/light.png" type="Texture" id=12]
+[ext_resource path="res://assets/overworld/overworld_transparent_river.png" type="Texture" id=13]
+[ext_resource path="res://assets/shaders/Water2D/water_2D_material.tres" type="Material" id=14]
+[ext_resource path="res://assets/shaders/Water2D/water_normal.png" type="Texture" id=15]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
@@ -23,33 +27,40 @@ _data = {
 "points": PoolVector2Array( 0, 0, 0, 0, 937.688, 196.627, 0, 0, 0, 0, 974.553, 218.627, 0, 0, 0, 0, 1032.82, 241.222, 0, 0, 0, 0, 1082.77, 247.168, 0, 0, 0, 0, 1113.1, 231.114, 0, 0, 0, 0, 1068.5, 202.573, 0, 0, 0, 0, 1008.45, 171.059, 0, 0, 0, 0, 1047.69, 137.166, 0, 0, 0, 0, 1119.64, 145.491, 0, 0, 0, 0, 1164.23, 181.761, 0, 0, 0, 0, 1155.31, 228.735, 0, 0, 0, 0, 1186.23, 218.032, 0, 0, 0, 0, 1196.34, 179.978, 0, 0, 0, 0, 1186.23, 141.328, 0, 0, 0, 0, 1157.1, 162.14, 0, 0, 0, 0, 1120.83, 181.761, 0, 0, 0, 0, 1110.72, 207.329, 0, 0, 0, 0, 1158.88, 244.789, 0, 0, 0, 0, 1210.61, 256.682, 0, 0, 0, 0, 1244.5, 247.762, 0, 0, 0, 0, 1256.99, 185.924, 0, 0, 0, 0, 1230.83, 153.221, 0, 0, 0, 0, 1205.26, 158.572, 0, 0, 0, 0, 1079.2, 174.032, 0, 0, 0, 0, 1007.26, 146.68, 0, 0, 0, 0, 937.688, 196.627 )
 }
 
-[sub_resource type="Curve2D" id=4]
+[sub_resource type="Curve2D" id=3]
 _data = {
 "points": PoolVector2Array( 0, 0, 0, 0, -5, 501.5, 0, 0, 0, 0, 19, 471.5, 0, 0, 0, 0, 65, 507.5, 0, 0, 0, 0, 99, 471.5, 0, 0, 0, 0, 153, 507.5, 0, 0, 0, 0, 189, 467.5, 0, 0, 0, 0, 235, 503.5, 0, 0, 0, 0, 277, 475.5, 0, 0, 0, 0, 301.912, 504.919, 0, 0, 0, 0, 336.696, 473.952 )
 }
 
-[sub_resource type="Gradient" id=7]
-offsets = PoolRealArray( 0, 0.825806 )
-colors = PoolColorArray( 0.184314, 0.545098, 0.580392, 0.368627, 0.67451, 0.772549, 0.0980392, 0.54902 )
+[sub_resource type="Gradient" id=4]
+offsets = PoolRealArray( 0.181818, 0.50974, 0.655844, 0.730519 )
+colors = PoolColorArray( 0.721569, 0.905882, 0.145098, 0.368627, 0.552277, 0.564801, 0.376945, 0.702562, 0.439216, 0.454902, 0.219608, 0.627451, 0.203922, 0.392157, 0.458824, 1 )
 
-[sub_resource type="GradientTexture" id=6]
-gradient = SubResource( 7 )
+[sub_resource type="GradientTexture" id=5]
+gradient = SubResource( 4 )
 width = 500
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=6]
 size = 32
 font_data = ExtResource( 5 )
 
 [node name="Game" type="CanvasLayer"]
 script = ExtResource( 6 )
 
+[node name="Water" type="Sprite" parent="."]
+modulate = Color( 0.243137, 0.576471, 0.835294, 1 )
+self_modulate = Color( 0.478431, 0.827451, 0.705882, 1 )
+material = ExtResource( 14 )
+position = Vector2( 642.853, 139.87 )
+scale = Vector2( 5, -1.1 )
+texture = ExtResource( 8 )
+normal_map = ExtResource( 15 )
+
 [node name="Background" type="TextureRect" parent="."]
 light_mask = 0
-anchor_right = 1.0
-anchor_bottom = 1.0
 margin_right = 1280.0
 margin_bottom = 720.0
-texture = ExtResource( 8 )
+texture = ExtResource( 13 )
 __meta__ = {
 "_edit_use_anchors_": true
 }
@@ -61,55 +72,71 @@ curve = SubResource( 1 )
 curve = SubResource( 2 )
 
 [node name="PondHousePath" type="Path2D" parent="."]
-position = Vector2( 15.8874, -223.125 )
+position = Vector2( 15.8874, -156.125 )
 scale = Vector2( 0.977477, 1.55 )
-curve = SubResource( 4 )
+curve = SubResource( 3 )
 
 [node name="Pondhouse" type="TextureRect" parent="."]
-margin_left = 771.943
-margin_top = 112.68
-margin_right = 917.943
-margin_bottom = 232.68
+margin_left = 772.0
+margin_top = 113.0
+margin_right = 918.0
+margin_bottom = 233.0
+rect_clip_content = true
 texture = ExtResource( 9 )
+stretch_mode = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Window" type="TextureRect" parent="."]
+[node name="Light" type="Light2D" parent="."]
+position = Vector2( 200.012, 431.773 )
+texture = ExtResource( 12 )
+texture_scale = 0.25
+color = Color( 0.866667, 0.611765, 0.411765, 1 )
+energy = 0.0
+
+[node name="Window" type="TextureRect" parent="Light"]
 anchor_left = 0.041
 anchor_top = 0.403
 anchor_right = 0.312
 anchor_bottom = 0.917
-margin_left = -10.48
-margin_top = 365.84
-margin_right = -9.36002
-margin_bottom = 363.76
-rect_rotation = -90.8425
-texture = SubResource( 6 )
+margin_left = -148.496
+margin_top = -229.168
+margin_right = 166.128
+margin_bottom = -33.752
+rect_rotation = -90.0
+rect_scale = Vector2( -0.899594, 1 )
+texture = SubResource( 5 )
 expand = true
+stretch_mode = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="TellerWindow" type="TextureRect" parent="."]
-anchor_top = 0.405556
-anchor_right = 0.352344
-anchor_bottom = 1.0
+anchor_left = -0.00175384
+anchor_top = 0.400879
+anchor_right = 0.35059
+anchor_bottom = 0.995323
+margin_left = 0.244915
+margin_top = 0.367126
+margin_right = 374.245
+margin_bottom = 362.367
 texture = ExtResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="Label" type="Label" parent="."]
-anchor_left = 0.547094
+[node name="Rule" type="Label" parent="."]
+anchor_left = 0.546875
 anchor_top = 0.554167
-anchor_right = 0.719675
-anchor_bottom = 0.703001
+anchor_right = 0.719456
+anchor_bottom = 0.60439
 margin_left = 6.10352e-05
-margin_right = -1.90387
-margin_bottom = 3.83899
+margin_right = -1.90393
+margin_bottom = 69.8395
 rect_rotation = -1.0
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 6 )
 text = "gfghfgj
 jbbbnbmnbnmbmbnm"
 align = 1
@@ -118,50 +145,74 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="Menu" type="TextureButton" parent="."]
-anchor_left = 0.652181
-anchor_top = 0.842372
-anchor_right = 0.8139
-anchor_bottom = 0.99515
-margin_right = -0.00195313
-texture_normal = ExtResource( 11 )
+[node name="DuckCounter" type="Label" parent="."]
+anchor_left = 0.0039062
+anchor_top = 0.0125
+anchor_right = 0.116331
+anchor_bottom = 0.0571681
+margin_left = 6.10352e-05
+margin_right = -1.90387
+margin_bottom = 3.83899
+rect_rotation = -1.0
+custom_fonts/font = SubResource( 6 )
+text = "0"
+align = 1
+autowrap = true
 __meta__ = {
 "_edit_use_anchors_": true
 }
 
 [node name="Allow" type="TextureButton" parent="."]
-anchor_left = 0.652181
-anchor_top = 0.842372
-anchor_right = 0.8139
-anchor_bottom = 0.99515
-margin_right = -0.00195313
+anchor_left = 0.652344
+anchor_top = 0.843056
+anchor_right = 0.744873
+anchor_bottom = 0.995833
+margin_right = 137.563
+margin_bottom = 18.0006
 texture_normal = ExtResource( 1 )
 texture_pressed = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="Exit" type="TextureButton" parent="."]
-anchor_left = 0.502351
-anchor_top = 0.798671
-anchor_right = 0.667976
-anchor_bottom = 0.957004
-margin_right = -6.10352e-05
-texture_normal = ExtResource( 3 )
+[node name="Menu" type="TextureButton" parent="."]
+visible = false
+anchor_left = 0.652344
+anchor_top = 0.843056
+anchor_right = 0.743311
+anchor_bottom = 0.995833
+margin_right = 139.562
+margin_bottom = 18.0006
+texture_normal = ExtResource( 11 )
 __meta__ = {
 "_edit_use_anchors_": true
 }
 
 [node name="Deny" type="TextureButton" parent="."]
-anchor_left = 0.502351
-anchor_top = 0.798671
-anchor_right = 0.667976
-anchor_bottom = 0.957004
-margin_right = -6.10352e-05
+anchor_left = 0.502344
+anchor_top = 0.798611
+anchor_right = 0.595508
+anchor_bottom = 0.956944
+margin_right = 136.75
+margin_bottom = 14.0002
 texture_normal = ExtResource( 2 )
 texture_pressed = ExtResource( 10 )
 __meta__ = {
 "_edit_use_anchors_": true
 }
+
+[node name="Exit" type="TextureButton" parent="."]
+visible = false
+anchor_left = 0.502344
+anchor_top = 0.798611
+anchor_right = 0.595508
+anchor_bottom = 0.956944
+margin_right = 136.75
+margin_bottom = 14.0002
+texture_normal = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
 [connection signal="pressed" from="Allow" to="." method="_on_Allow_pressed"]
 [connection signal="pressed" from="Deny" to="." method="_on_Deny_pressed"]
